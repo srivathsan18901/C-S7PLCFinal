@@ -32,8 +32,9 @@ namespace C_S7PLCFinal
 
         private void ConnectBTN_Click(object sender, EventArgs e)
         {
-            CpuType cpu=(CpuType)Enum.Parse(typeof(CpuType), comboBox1.SelectedItem.ToString());
+            CpuType cpu=(CpuType)Enum.Parse(typeof(CpuType), comboBox1.SelectedValue.ToString());
             plc = new Plc(cpu, textBox1.Text, Convert.ToInt16(textBox2.Text), Convert.ToInt16(textBox3.Text));
+            plc.Open();
             if (plc.IsConnected)
             {
                 textBox6.Text = "Connected";
@@ -71,8 +72,10 @@ namespace C_S7PLCFinal
         private void W_BTN_Click(object sender, EventArgs e)
         {
             string address =textBox7.Text;
-            object setpoint = textBox5.Text;
+            Int16 setpoint = Int16.Parse(textBox5.Text);
+            //object setpoint = textBox5.Text;
             plc.Write(address, setpoint);
+           
         }
     }
 }
